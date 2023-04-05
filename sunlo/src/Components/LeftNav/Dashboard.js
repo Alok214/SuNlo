@@ -7,6 +7,8 @@ import "./LeftNav.css";
 import Home from "../Home/Home";
 import Library from "../Library/Library";
 import Liked from "../Liked/Liked";
+import Login from "../Login";
+import { useSelector } from "react-redux";
 
 const tabs = [
   {
@@ -26,8 +28,10 @@ const tabs = [
     icon: <FcLike size={30} className="icons" />,
   },
 ];
-function Dashboard({ selecttab }) {
+function Dashboard() {
   const [tab, setTab] = useState("Home");
+
+  const { code } = useSelector((state) => state.auth);
 
   return (
     <div className="main_container">
@@ -58,15 +62,25 @@ function Dashboard({ selecttab }) {
           </div>
         </div>
       </div>
-      <div className="detailContainer">
-        {tab === "Home" ? (
-          <Home />
-        ) : tab === "Your Library" ? (
-          <Library />
-        ) : tab === "Liked Music" ? (
-          <Liked />
-        ) : null}
-      </div>
+      <>
+        {code ? (
+          <div className="detailContainer">
+            {tab === "Home" ? (
+              <Home />
+            ) : tab === "Your Library" ? (
+              <Library />
+            ) : tab === "Liked Music" ? (
+              <Liked />
+            ) : (
+              <Login />
+            )}
+          </div>
+        ) : (
+          <div className="detailContainer">
+            <Login />
+          </div>
+        )}
+      </>
     </div>
   );
 }

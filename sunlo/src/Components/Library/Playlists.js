@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Playlists.css";
 import Card from "../Card/Card";
 import Liked from "../Liked/Liked";
-import Dashboard from "../LeftNav/Dashboard";
 
 function Playlists() {
   const [tab, setTab] = useState("Playlists");
